@@ -1,0 +1,251 @@
+olebhoj@olebhoj:~$ ls -l /home/ryan
+total 3
+drwxr-xr-x  2 ryan users 4096 Mar 23 13:34 bin
+drwxr-xr-x 18 ryan users 4096 Feb 17 09:12 Documents
+drwxr-xr-x  2 ryan users 4096 May 05 17:25 public_html
+
+
+=> Line 1 presents us with a prompt ( user@bash ). After that we entered a command 
+    ( ls ). Typically a command is always the first thing you type. After that we have
+    what are referred to as command line arguments ( -l /home/ryan ). Important to note, 
+    these are separated by spaces (there must be a space between the command and the first 
+    command line argument also). The first command line argument ( -l ) is also referred to 
+    as an option. Options are typically used to modify the behaviour of the command. Options
+    are usually listed before other arguments and typically start with a dash ( - ).
+
+=============================================================================================
+Title: The Shell, Bash
+
+olebhoj@olebhoj:~$ echo $SHELL
+/bin/bash
+
+=> to know which shell you are using you may use a command called echo  
+
+==============================================================================================
+title:So where are we?
+
+olebhoj@olebhoj:~$ pwd
+    => pwd which stands for Print Working Directory. 
+==============================================================================================
+title: What's in Our Current Location? 
+olebhoj@olebhoj:~$ ls
+syntax : ls [options] [location] 
+eg. ls -l /etc 
+eg. ls -l .
+
+    => ls=list
+
+==============================================================================================
+title: Paths    
+Absolute and Relative Paths
+=> Absolute paths specify a location (file or directory) in relation to the root directory.
+ You can identify them easily as they always begin with a forward slash ( / )
+
+Relative paths specify a location (file or directory) in relation to where we currently 
+are in the system. They will not begin with a slash.
+
+~ (tilde) - This is a shortcut for your home directory. eg, if your home directory is 
+/home/ryan then you could refer to the directory Documents with the path /home/ryan/Documents or ~/Documents
+
+
+. (dot) - This is a reference to your current directory. eg in the example above we referred to 
+Documents on line 4 with a relative path. It could also be written as ./Documents (Normally this
+ extra bit is not required but in later sections we will see where it comes in handy).
+
+.. (dotdot)- This is a reference to the parent directory. You can use this several times
+ in a path to keep going up the hierarchy. eg if you were in the path /home/ryan you 
+ could run the command ls ../../ and this would do a listing of the root directory.
+
+==============================================================================================
+title: Let's Move Around a Bit
+syntax: cd [location]
+
+==============================================================================================
+title: Everything is a File
+=> The first thing we need to appreciate with linux is that under the hood, everything is actually
+a file. A text file is a file, a directory is a file, your keyboard is a file (one that the system 
+reads from only), your monitor is a file (one that the system writes to only) etc. To begin with, 
+this won't affect what we do too much but keep it in mind as it helps with understanding the behaviour
+of Linux as we manage files and directories.
+
+==============================================================================================
+title: Linux is an Extensionless System
+=> This one can sometimes be hard to get your head around but as you work through the 
+sections it will start to make more sense. A file extension is normally a set of 2 - 4 
+characters after a full stop at the end of a file, which denotes what type of file it is.
+ The following are common extensions:
+
+file.exe - an executable file, or program.
+file.txt - a plain text file.
+file.png, file.gif, file.jpg - an image.
+
+In other systems such as Windows the extension is important and the system uses it to 
+determine what type of file it is. Under Linux the system actually ignores the extension 
+and looks inside the file to determine what type of file it is.
+
+Points: 
+1.Linux is Case Sensitive 
+2. Spaces in names -> Spaces in file and directory names are perfectly valid but we need to be a little 
+    careful with them. As you would remember, a space on the command line is how we seperate items. 
+3.Quotes-> Anything inside quotes is considered a single item. 
+    eg. olebhoj@olebhoj:~$ cd 'Holiday Photos'
+4.Escape Characters -> Another method is to use what is called an escape character, which is a backslash ( \ )
+     eg. olebhoj@olebhoj:~$ cd Holiday\ Photos
+
+==============================================================================================
+title: Hidden Files and Directories
+ => Linux actually has a very simple and elegant mechanism for specifying that a file or directory is hidden.
+    If the file or directory's name begins with a . (full stop) then it is considered to be hidden. 
+
+to see hidden files: 
+ olebhoj@olebhoj:~$ ls -a Documents
+
+==============================================================================================
+
+title: So what are they exactly?(Manual pages.)
+syntax for manual pages= man [command]
+  olebhoj@olebhoj:~$ man ls 
+
+Searching: It is possible to do a keyword search on the Manual pages.
+syntax: man -k <search term>
+==============================================================================================
+title:Making a Directory
+
+syntax: mkdir [options] <Directory>
+
+title: Removing a Directory
+
+syntax : rmdir [options] <Directory>
+
+title: Creating a Blank File
+
+syntax : touch [options] <filename>
+==============================================================================================
+title:Copying a File or Directory
+
+syntax: cp [options] <source> <destination>
+Note :
+For copying directory: 
+    By default, cp copies only the direct files in, and not subdirectories in the directory. 
+    The message  cp: omitting directory 'directory' warns you that the mentioned directory is not copied.
+
+To do so, specify the -r (or --recursive) option:
+
+cp -r [options] <source> <destination>
+Notes:
+
+mkdir
+    Make Directory - ie. Create a directory.
+rmdir
+    Remove Directory - ie. Delete a directory.
+touch
+    Create a blank file.
+cp
+    Copy - ie. Copy a file or directory.
+mv
+    Move - ie. Move a file or directory (can also be used to rename).
+rm
+    Remove - ie. Delete a file.
+
+No undo->The Linux command line does not have an undo feature. Perform destructive actions carefully.
+
+Command line options-> Most commands have many useful command line options. Make sure you 
+skim the man page for new commands so you are familiar with what they can do and what is available.
+==============================================================================================
+title:Vi Text Editor!
+
+desc: 
+vi <file>
+
+    ZZ (Note: capitals) - Save and exit
+    :q! - discard all changes, since the last save, and exit
+    :w - save file but don't exit
+    :wq - again, save and exit
+
+Deleting content:
+    x - delete a single character
+    nx - delete n characters (eg 5x deletes five characters)
+    dd - delete the current line
+    dn - d followed by a movement command. Delete to where the movement command would have 
+        taken you. (eg d5w means delete 5 words)
+
+Undoing:
+    u - Undo the last action (you may keep pressing u to keep undoing)
+    U (Note: capital) - Undo all changes to the current line
+
+==============================================================================================
+title:
+
+syntax: 
+
+desc: 
+==============================================================================================
+title:
+
+syntax: 
+
+desc: 
+==============================================================================================
+title:
+
+syntax: 
+
+desc: 
+
+==============================================================================================
+
+
+
+
+==============================================================================================
+
+
+
+==============================================================================================
+
+
+
+
+==============================================================================================
+
+
+
+==============================================================================================
+
+
+
+==============================================================================================
+
+
+==============================================================================================
+==============================================================================================
+
+
+
+
+==============================================================================================
+
+
+
+
+==============================================================================================
+
+
+
+==============================================================================================
+
+
+
+
+==============================================================================================
+
+
+
+==============================================================================================
+
+
+
+==============================================================================================
+
+
+==============================================================================================
